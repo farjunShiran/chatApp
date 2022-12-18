@@ -60,7 +60,9 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((res) => {
         console.log(res);
+        this._isLogged.next(true);
         this.setUserData(res.user as User);
+        this.router.navigate(['/chat']);
       })
       .catch((error) => {
         window.alert(error);

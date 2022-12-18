@@ -24,6 +24,7 @@ import { ChatRoomListComponent } from './component/chat-room-list/chat-room-list
 import { AddRoomComponent } from './component/add-room/add-room.component';
 import { HomeComponent } from './component/home/home.component';
 import { PageNutFoundComponent } from './component/page-nut-found/page-nut-found.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { PageNutFoundComponent } from './component/page-nut-found/page-nut-found
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    MatToolbarModule,MatIconModule ,MatIconModule
+    MatToolbarModule,MatIconModule ,MatIconModule,MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

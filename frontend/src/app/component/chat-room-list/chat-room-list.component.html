@@ -1,1 +1,11 @@
-<p>chat-room-list works!</p>
+<div class="rooms">
+    <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let room of rooms" [value]="room">
+          {{room.roomName}}
+        </mat-list-option>
+      </mat-selection-list>
+<!--       
+      <p>
+        Option selected: {{rooms.selectedOptions.hasValue() ? rooms.selectedOptions.selected[0].value : 'None'}}
+      </p> -->
+</div>
