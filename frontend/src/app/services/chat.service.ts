@@ -45,4 +45,11 @@ export class ChatService {
         })
       );
   }
+
+  addRoom(roomName:string,userId:string|undefined):void{
+    this._db.collection('rooms').add({
+      roomName,
+      createdUserId:userId,
+    })
+  }
 }

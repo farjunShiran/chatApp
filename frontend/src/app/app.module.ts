@@ -26,6 +26,8 @@ import { HomeComponent } from './component/home/home.component';
 import { PageNutFoundComponent } from './component/page-nut-found/page-nut-found.component';
 import { MatListModule } from '@angular/material/list';
 import { ChatComponent } from './component/chat/chat.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,7 @@ import { ChatComponent } from './component/chat/chat.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    MatToolbarModule,MatIconModule ,MatIconModule,MatListModule
+    MatToolbarModule,MatIconModule ,MatIconModule,MatListModule,MatDialogModule,MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,6 @@
         <app-chat [messages]="messages"></app-chat>
     </div>
     <div class="chat-container_add-room">
-        <button type="button" mat-raised-button>Add Room</button>
+        <button type="button" (click)="openDialog()" mat-raised-button>Add Room</button>
     </div>
 </div>

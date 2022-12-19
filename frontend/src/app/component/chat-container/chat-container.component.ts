@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -7,7 +8,9 @@ import {
 } from '@angular/router';
 import { filter, Observable, Subscription } from 'rxjs';
 import { IChatRoom, IMessage } from 'src/app/models';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
+import { AddRoomComponent } from '../add-room/add-room.component';
 
 @Component({
   selector: 'app-container',
@@ -16,38 +19,64 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatContainerComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-
+  private userId: string | undefined = '';
   public rooms$: Observable<Array<IChatRoom>>;
   public messages$: Observable<Array<IMessage>>;
 
   constructor(
     private chatService: ChatService,
     private activateRoute: ActivatedRoute,
-    router: Router
+    private authService: AuthService,
+    router: Router,
+    public dialog: MatDialog
   ) {
     this.rooms$ = this.chatService.getRooms();
-    console.log(activateRoute.snapshot.queryParams['id']);
+    // console.log(activateRoute.snapshot.queryParams['id']);
 
     const roomId: string = activateRoute.snapshot.queryParams['id'];
     this.messages$ = this.chatService.getRoomsMessage(roomId);
-    console.log('roomId', roomId);
+    // console.log('roomId', roomId);
 
     this.subscription.add(
       router.events
         .pipe(filter((data) => data instanceof NavigationEnd))
         .subscribe((data) => {
-          const routerEvent: RouterEvent = <RouterEvent>data;          
+          const routerEvent: RouterEvent = <RouterEvent>data;
           const urlArr = routerEvent.url.split('=');
           if (urlArr.length >= 2)
-          console.log('urlArr[1]',urlArr[1]);
-          
             this.messages$ = this.chatService.getRoomsMessage(urlArr[1]);
-
         })
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription.add(
+      this.authService
+        .getUserData()
+        .pipe(filter((data) => !!data))
+        .subscribe((user) => {
+          // console.log('user',user);
+          this.userId = user?.uid;
+        })
+    );
+  }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddRoomComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.onAddRoom(result, this.userId);
+    });
+  }
+
+  onAddRoom(roomName: string, userId: string | undefined) {
+    console.log(this.userId);
+
+    this.chatService.addRoom(roomName, userId);
+  }
 }
