@@ -25,6 +25,7 @@ import { AddRoomComponent } from './component/add-room/add-room.component';
 import { HomeComponent } from './component/home/home.component';
 import { PageNutFoundComponent } from './component/page-nut-found/page-nut-found.component';
 import { MatListModule } from '@angular/material/list';
+import { ChatComponent } from './component/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatListModule } from '@angular/material/list';
     ChatRoomListComponent,
     AddRoomComponent,
     HomeComponent,
-    PageNutFoundComponent
+    PageNutFoundComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

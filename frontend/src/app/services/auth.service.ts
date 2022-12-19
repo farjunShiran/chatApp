@@ -36,7 +36,7 @@ export class AuthService {
       if (user) {
         this.userData = user;
         this.userDetails$.next(<User>user)
-        console.log(JSON.stringify(user));
+        // console.log(JSON.stringify(user));
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
         this._isLogged.next(true);
@@ -62,7 +62,7 @@ export class AuthService {
         console.log(res);
         this._isLogged.next(true);
         this.setUserData(res.user as User);
-        this.router.navigate(['/chat']);
+        this.router.navigate(['chat']);
       })
       .catch((error) => {
         window.alert(error);

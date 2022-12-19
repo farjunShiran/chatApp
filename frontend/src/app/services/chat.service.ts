@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
-import { IChatRoom } from '../models';
+import { IChatRoom, IMessage } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,26 @@ export class ChatService {
             const data: IChatRoom = <IChatRoom>snaps.payload.doc.data();
             return <IChatRoom>{
               ...data,
-              id
+              id,
+            };
+          });
+        })
+      );
+  }
+  getRoomsMessage(roomId: string): Observable<Array<IMessage>> {
+    return this._db
+      .collection('rooms')
+      .doc(roomId)
+      .collection('message')
+      .snapshotChanges()
+      .pipe(
+        map((messages) => {
+          return messages.map((message) => {
+            const data: IMessage = <IMessage>message.payload.doc.data();
+            const id = message.payload.doc.id;
+            return {
+              ...data,
+              id,
             };
           });
         })
