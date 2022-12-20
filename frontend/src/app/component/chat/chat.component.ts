@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IMessage } from 'src/app/models';
 
 @Component({
@@ -8,11 +9,17 @@ import { IMessage } from 'src/app/models';
 })
 export class ChatComponent implements OnInit {
   @Input() messages: Array<IMessage> = [];
-
+  @Output() onSendMessage: EventEmitter<string> = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {
-    console.log('MESSAGESSS!!',this.messages);
+    console.log('MESSAGESSS!!', this.messages);
+  }
+  sendMessage(message:string):void{
+    console.log('message1',message);
     
+    this.onSendMessage.emit(message);
   }
 }
+
+

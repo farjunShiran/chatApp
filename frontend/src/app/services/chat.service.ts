@@ -52,4 +52,14 @@ export class ChatService {
       createdUserId:userId,
     })
   }
+
+  public sendMessage(userId:string,body:string,roomId:string){
+    console.log('message3',userId , roomId,body);
+    this._db.collection('rooms').doc(roomId).collection('message').add({
+      body,
+      userId,
+      timestamp: new Date().getTime(),
+    });
+  }
+
 }
