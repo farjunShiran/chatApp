@@ -28,6 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { ChatComponent } from './component/chat/chat.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import {MatInputModule} from '@angular/material/input';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    MatToolbarModule,MatIconModule ,MatIconModule,MatListModule,MatDialogModule,MatInputModule
+    MatToolbarModule,MatIconModule ,MatIconModule,MatListModule,MatDialogModule,MatInputModule,ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

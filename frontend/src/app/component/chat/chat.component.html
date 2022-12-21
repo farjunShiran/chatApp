@@ -1,13 +1,15 @@
 <div class="chat">
-    <div class="chat_messages">
+    <!-- <div class="chat_messages">
         <div class="chat_massage" *ngFor="let message of messages">
             {{message.body}}
         </div>
-    </div>
-
+    </div> -->
+    <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="chat_messages" #virtualScroll>
+        <div *cdkVirtualFor="let message of messages" class="chat_message">{{message.body}}</div>
+    </cdk-virtual-scroll-viewport>
 
     <div class="chat_form">
-        <input type= "text" #newMessage>
+        <input type="text" #newMessage>
         <button type="button" (click)="sendMessage(newMessage.value,newMessage)" class=" btn">שלח</button>
     </div>
 </div>

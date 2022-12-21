@@ -1,9 +1,15 @@
-.example-spacer {
+.header {
+  &.__spacer {
     flex: 1 1 auto;
   }
-
-  .btm_login_out{
+  &.__link {
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+  }
+  .btm_login_out {
     position: absolute;
     right: 0;
     margin-right: 20px;
   }
+}
