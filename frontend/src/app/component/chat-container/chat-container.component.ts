@@ -28,7 +28,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     private chatService: ChatService,
     private activateRoute: ActivatedRoute,
     private authService: AuthService,
-    router: Router,
+    private router: Router,
     public dialog: MatDialog
   ) {
     this.rooms$ = this.chatService.getRooms();
@@ -39,7 +39,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     }
 
     this.subscription.add(
-      router.events
+      this.router.events
         .pipe(filter((data) => data instanceof NavigationEnd))
         .subscribe((data) => {
           const routerEvent: RouterEvent = <RouterEvent>data;
@@ -58,6 +58,12 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         .subscribe((user) => {
           // console.log('user',user);
           this.userId = user?.uid;
+        })
+    );
+    this.subscription.add(
+      this.activateRoute.params
+        .subscribe((data) => {          
+          this.roomId =data['roomId']||'';
         })
     );
   }
@@ -80,7 +86,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   }
 
   onSendMessage(message: string) {
-    console.log('message2',this.userId , this.roomId,message);
+    console.log('message2', this.userId, this.roomId, message);
     if (this.userId && this.roomId)
       this.chatService.sendMessage(this.userId, message, this.roomId);
   }
