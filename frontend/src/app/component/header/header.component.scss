@@ -12,4 +12,13 @@
     right: 0;
     margin-right: 20px;
   }
+  margin-bottom: 20px;
+}
+.mat-toolbar.mat-primary {
+  background: rgb(166, 225, 72);
+  color: #fff;
+  .header__link{
+    color: white !important;
+    margin-left: 30px;
+  }
 }
