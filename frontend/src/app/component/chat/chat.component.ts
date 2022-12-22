@@ -9,6 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { IMessage } from 'src/app/models';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,7 +23,6 @@ export class ChatComponent implements OnInit {
     this._messages = messages.sort((x, y) => {
       return x.timestamp - y.timestamp;
     });
-    console.log(this._messages.length - 1);
     setTimeout(() => {
       this.virtualScroll?.scrollToIndex(this._messages.length - 1);
     }, 0);
@@ -31,11 +31,13 @@ export class ChatComponent implements OnInit {
     return this._messages;
   }
   private _messages: Array<IMessage> = [];
-
-  constructor() {}
+  public userId: string;
+  constructor(private authService: AuthService) {
+    this.userId = authService.getUserId();
+  }
 
   ngOnInit(): void {
-    console.log('MESSAGESSS!!', this.messages);
+    console.log('MESSAGESSS!!', this.userId, this.messages);
   }
   sendMessage(message: string, input: HTMLInputElement): void {
     this.onSendMessage.emit(message);

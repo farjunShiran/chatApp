@@ -48,18 +48,22 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
             this.messages$ = this.chatService.getRoomsMessage(urlArr[2]);
         })
     );
+
+    this.userId = this.authService.getUserId();
   }
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.authService
-        .getUserData()
-        .pipe(filter((data) => !!data))
-        .subscribe((user) => {
-          // console.log('user',user);
-          this.userId = user?.uid;
-        })
-    );
+    // this.subscription.add(
+    //   this.authService
+    //     .getUserData()
+    //     .pipe(filter((data) => !!data))
+    //     .subscribe((user) => {
+    //       this.userId = user?.uid;
+    //       console.log('this.userId',this.userId);
+
+    //     })
+    // );
+
     this.subscription.add(
       this.activateRoute.params
         .subscribe((data) => {          
@@ -86,6 +90,8 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   }
 
   onSendMessage(message: string) {
+    console.log('this.userId',this.userId);
+
     console.log('message2', this.userId, this.roomId, message);
     if (this.userId && this.roomId)
       this.chatService.sendMessage(this.userId, message, this.roomId);

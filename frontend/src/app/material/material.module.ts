@@ -6,9 +6,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatButtonModule} from '@angular/material/button';
 
 
-const modules: any= [MatToolbarModule,MatIconModule,MatListModule,MatDialogModule,MatInputModule,ScrollingModule]
+const modules: any= [MatToolbarModule,MatIconModule,MatListModule,MatDialogModule,MatInputModule,ScrollingModule,MatButtonModule]
 
 @NgModule({
   declarations: [],

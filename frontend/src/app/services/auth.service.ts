@@ -13,13 +13,18 @@ import { User } from '../models/User';
   providedIn: 'root',
 })
 export class AuthService {
-  private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
   isLogged$ = this._isLogged.asObservable();
-  
+
   userData: any; // Save logged in user data
 
-  private userDetails: Subject<User | undefined> = new Subject<User | undefined>();
-  userDetails$=this.userDetails.asObservable();
+  private userId: string = '';
+  private userDetails: Subject<User | undefined> = new Subject<
+    User | undefined
+  >();
+  userDetails$ = this.userDetails.asObservable();
 
   constructor(
     private afs: AngularFirestore, // Inject Firestore service
@@ -36,11 +41,12 @@ export class AuthService {
 
     afAuth.authState.subscribe((user) => {
       if (!!user) {
-        this.userData = user;   //  למחוק?
+        this.userData = user; //  למחוק?
         this.userDetails.next(<User>user);
         const userString: string = JSON.stringify(this.userData);
         localStorage.setItem('user', userString);
         this._isLogged.next(true);
+        this.userId = user.uid;
       } else {
         localStorage.removeItem('user');
         this._isLogged.next(false);
@@ -59,7 +65,9 @@ export class AuthService {
   public getUserData() {
     return this.userDetails$;
   }
-  
+  public getUserId() {
+    return this.userId;
+  }
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
